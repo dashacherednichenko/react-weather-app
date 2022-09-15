@@ -1,7 +1,7 @@
 import React from "react";
 import Weather from "./Weather"
 
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
