@@ -1,0 +1,13 @@
+.day {
+    font-size: 14px;
+    text-align: center;
+}
+
+.emoji {
+    text-align: center;
+}
+
+.temperature {
+    text-align: center;
+    font-size: 18px;
+}
