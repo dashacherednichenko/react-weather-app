@@ -3,11 +3,13 @@ body {
 }
 
 a {
-    color: #885df1;
+    text-decoration: none;
+    color: #885df1 !important;
 }
 
 a:hover {
-    color: #885df1;
+    color: #885df1 !important;
+    text-decoration: underline;
 }
 
 .weather-block {
@@ -36,13 +38,13 @@ input[type="text"] {
 }
 
 .btn-primary {
-    background-color: #885df1;
-    border-color: #885df1;
+    background-color: #885df1 !important;
+    border-color: #885df1 !important;
 }
 
 .btn-primary:hover {
-    border-color: #662eed;
-    background: #662eed;
+    border-color: #662eed !important;
+    background: #662eed !important;
 }
 
 input[type="submit"] {

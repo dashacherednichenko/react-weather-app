@@ -1,9 +1,8 @@
 import React from "react";
+import "./Weather.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import DayForecast from "./DayForecast";
-
-import "./Weather.css";
 
 export default function Weather() {
     return (
