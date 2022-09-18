@@ -17,7 +17,7 @@ export default function DayForecast(props) {
                 <div className="emoji">
         <span className="weather-emoji">
           <img
-              src="http://openweathermap.org/img/wn/04d@2x.png"
+              src={`http://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`}
               alt="Clear"
               className=""
           />
