@@ -4,32 +4,65 @@ import "./Search.css";
 import DayForecast from "./DayForecast";
 
 export default function Search() {
+    let apiKey = "061af8862776400f0f98509421517421";
     let [city, setCity] = useState("");
+    let units = "metric";
     let [citySelect, setCitySelect] = useState("Kyiv");
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather`;
     let [temp, setTemp] = useState(22);
     let [description, setDescription] = useState("Sunny");
     let [humidity, setHumidity] = useState(57);
     let [wind, setWind] = useState(5);
-    let [currentWeather, setCurrentWeather] = useState([]);
+    let [icon, setIcon] = useState("http://openweathermap.org/img/wn/01d@2x.png");
+    let [updated, setUpdated] = useState("Sunday 13:05");
+    let [coord, setCoord] = useState({});
+    let [forecastData, setForecastData]=useState([{}]);
+
+    function formatDate(timestamp) {
+        let now = new Date(timestamp);
+        let day = now.getDay();
+        let days = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ];
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        if (hours < 10) {
+            hours = `0${hours}`;
+        }
+        if (minutes < 10) {
+            minutes = `0${minutes}`;
+        }
+        return `${days[day]}, ${hours}:${minutes}`;
+    }
+
+    function displayForecast(res) {
+        setForecastData(res.data.daily);
+        // console.log('forecastData', forecastData);
+    }
+
+    function getForecast(coord, unit) {
+        // console.log('coord', coord);
+        let apiUrlDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=hourly,minutely&appid=${apiKey}&units=${unit}`;
+        axios.get(apiUrlDays).then(displayForecast);
+    }
 
     function showTemp(res) {
-        console.log('showTemp',res);
+        // console.log('showTemp',res, res.data.name);
         setCitySelect(res.data.name);
         setTemp(res.data.main.temp);
         setDescription(res.data.weather[0].description);
         setHumidity(res.data.main.humidity);
         setWind(res.data.wind.speed);
-        setCurrentWeather([
-            { name: "temperature", value: `${Math.round(res.data.main.temp)} °C` },
-            { name: "Description", value: res.data.weather[0].description },
-            { name: "Humidity", value: `${res.data.main.humidity}%` },
-            { name: "Wind", value: `${res.data.wind.speed}km/h` },
-            {
-                name: "icon",
-                value: `http://openweathermap.org/img/wn/${res.data.weather[0].icon}@2x.png`,
-                alt: "res.data.weather[0].description"
-            }
-        ]);
+        setIcon(`http://openweathermap.org/img/wn/${res.data.weather[0].icon}@2x.png`);
+        setUpdated(formatDate(res.data.dt * 1000));
+        setCoord(res.data.coord);
+        getForecast(res.data.coord, 'metric');
     }
 
     function handleSubmit(event) {
@@ -40,15 +73,25 @@ export default function Search() {
             let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
 
             axios.get(apiUrl).then(showTemp);
-        } else {
-            setCurrentWeather([]);
         }
+        // else {
+        //     setCurrentWeather([]);
+        // }
+        // else {
+        //     setCurrentWeather([]);
+        // }
     }
 
     function changeCity(event) {
-        console.log('city', event.target.value);
+        // console.log('city', event.target.value);
         setCity(event.target.value);
     }
+
+    // function first() {
+    // console.log('TEST', apiUrl, citySelect, apiKey);
+        // axios.get(`${apiUrl}?q=${citySelect}&appid=${apiKey}&units=metric`).then(showTemp);
+    // }
+    // first();
 
     return (
     <div className="Search">
@@ -81,7 +124,7 @@ export default function Search() {
                     <h1 id="town">{citySelect}</h1>
                     <div className="weather-detail__text">
                         last updated at:{" "}
-                        <span id="current_date">Sunday 13:05</span>
+                        <span id="current_date">{updated}</span>
                     </div>
                     <div className="weather-detail__text" id="weatherDesc">
                         {description}
@@ -93,7 +136,7 @@ export default function Search() {
                             <div className="float-left weather-icon">
                             <span className="weather-emoji">
                               <img
-                                  src="http://openweathermap.org/img/wn/01d@2x.png"
+                                  src={icon}
                                   alt="Clear"
                                   id="icon"
                                   className="float-left"
@@ -130,12 +173,12 @@ export default function Search() {
             </div>
             <div className="forecast" id="forecast">
                 <div className="row">
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
-                    <DayForecast dt="Sun" maxTemp={29} minTemp={20} />
+                    {forecastData.map(function (data, i) {
+                        return i < 6 ?
+                                <DayForecast data={data} key={i}/>
+                            : null
+                            ;
+                    })}
                 </div>
             </div>
         </div>
