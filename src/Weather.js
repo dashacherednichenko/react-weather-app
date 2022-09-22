@@ -3,7 +3,6 @@ import "./Weather.css";
 import Header from "./Header";
 import Search from "./Search";
 import Footer from "./Footer";
-import DayForecast from "./DayForecast";
 
 export default function Weather() {
     return (

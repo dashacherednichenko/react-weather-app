@@ -65,21 +65,22 @@ a:hover {
     margin-left: 10px;
 }
 
+.weather-summary-header {
+    margin-bottom: 10px;
+}
+
 .temperature,
 .day,
 .weather-summary-header .weather-detail__text:first-letter {
     text-transform: capitalize;
 }
-
 .weather-emoji {
     font-size: 38px;
     display: inline-block;
 }
 
-.weather-emoji img {
+.weather-emoji canvas {
     margin-right: 5px;
-    height: 56px;
-    width: 56px;
 }
 
 .day {

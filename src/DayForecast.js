@@ -1,4 +1,5 @@
 import React from "react";
+import WeatherIcon from "./WeatherIcon";
 
 import "./DayForecast.css";
 
@@ -15,14 +16,7 @@ export default function DayForecast(props) {
             <div className="DayForecast col-sm-2">
                 <div className="day">{formatDay(props.data.dt)}</div>
                 <div className="emoji">
-        <span className="weather-emoji">
-          <img
-              src={`http://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`}
-              alt="Clear"
-              className=""
-          />
-          ️
-        </span>
+                    <WeatherIcon code={props.data.weather[0].icon} size={52}/>
                 </div>
                 <div className="temperature">
                     <span className="temp-max">{Math.round(props.data.temp.max)}°</span>
