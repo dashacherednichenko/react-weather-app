@@ -7,4 +7,9 @@
 .Header .navigation-city {
     display: inline;
     margin: 0 20px 0 0;
+    cursor: pointer;
+}
+
+.Header .navigation-city:hover {
+   text-decoration: underline;
 }

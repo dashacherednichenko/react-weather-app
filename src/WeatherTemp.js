@@ -1,17 +1,18 @@
 import React, {useState} from "react";
+import {setGlobalState, useGlobalState} from "./App";
 
 export default function WeatherTemp(props) {
-    let [unit, setUnit] = useState('metric');
+    const [unit] = useGlobalState('defaultUnit');
 
     function convertTemp(event) {
         let click_unit = event.target;
-        // console.log('event', event, event.target)
+        // console.log("useGlobalState('defaultUnit')", useGlobalState('defaultUnit'));
         if (click_unit.id === 'fahrenheit-link') {
-            setUnit('imperial');
-            // getForecast(coord, 'imperial');
+            // setUnit('imperial');
+            setGlobalState("defaultUnit",'imperial');
         } else {
-            setUnit('metric');
-            // getForecast(coord, 'metric');
+            // setUnit('metric');
+            setGlobalState("defaultUnit",'metric');
         }
 
     }

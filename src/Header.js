@@ -1,22 +1,30 @@
 import React from "react";
+// import {setGlobalState, useGlobalState} from "./App";
 
 import "./Header.css";
 
 export default function Header() {
+    // const city = useGlobalState('defaultCity');
+
+    // function changeSearchCity(event) {
+    //     event.preventDefault();
+    //     console.log('event', event, event.target.innerText);
+    //     setGlobalState("defaultCity", event.target.innerText);
+    // }
     return (
         <header className="Header">
             <ul className="navigation-cities">
                 {/*<li className="navigation-city">*/}
-                {/*    <a href="#">Irpin</a>*/}
+                {/*    <a onClick={changeSearchCity}>Irpin</a>*/}
                 {/*</li>*/}
                 {/*<li className="navigation-city">*/}
-                {/*    <a href="#">Bucha</a>*/}
+                {/*    <a onClick={changeSearchCity}>Bucha</a>*/}
                 {/*</li>*/}
                 {/*<li className="navigation-city">*/}
-                {/*    <a href="#">Kherson</a>*/}
+                {/*    <a onClick={changeSearchCity}>Kherson</a>*/}
                 {/*</li>*/}
                 {/*<li className="navigation-city">*/}
-                {/*    <a href="#">Mariupol</a>*/}
+                {/*    <a onClick={changeSearchCity}>Mariupol</a>*/}
                 {/*</li>*/}
             </ul>
         </header>

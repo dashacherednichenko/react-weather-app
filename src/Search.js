@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import axios from "axios";
+// import {setGlobalState, useGlobalState} from "./App";
 import "./Search.css";
 import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./WeatherForecast";
 
 export default function Search() {
     const [ready, setReady] = useState(false);
+    // const [unit] = useGlobalState('defaultUnit');
     const apiKey = "061af8862776400f0f98509421517421";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather`;
     let units = "metric";
@@ -15,7 +17,6 @@ export default function Search() {
 
     function showTemp(res) {
         setWeather(res.data);
-        // console.log('showTemp', res, res.data.name, res.data, weather);
         setReady(true);
     }
 
@@ -27,11 +28,11 @@ export default function Search() {
     }
 
     function changeCity(event) {
-        // console.log('city', event.target.value);
         setCity(event.target.value);
     }
+
     function search() {
-        axios.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`).then(showTemp);
+        axios.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=${units}`).then(showTemp);
     }
 
     if (ready) {
@@ -54,20 +55,13 @@ export default function Search() {
                                 readOnly
                             />
                         </form>
-                        {/*<button*/}
-                        {/*    className="float-left btn btn-success"*/}
-                        {/*    id="currentCityBtn"*/}
-                        {/*>*/}
-                        {/*    Current*/}
-                        {/*</button>*/}
                     </div>
-                    <WeatherInfo data={weather} />
-                    {/*<WeatherForecast coordinates={weather.coord}/>*/}
+                    <WeatherInfo data={weather}/>
+                    <WeatherForecast coordinates={weather.coord}/>
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
         search()
         return "Loading"
     }

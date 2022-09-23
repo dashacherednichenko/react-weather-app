@@ -3,8 +3,10 @@ import "./Weather.css";
 import Header from "./Header";
 import Search from "./Search";
 import Footer from "./Footer";
+// import {setGlobalState, useGlobalState} from "./App";
 
 export default function Weather() {
+    // const city = useGlobalState('defaultCity');
     return (
         <div className="Weather">
             <div className="container">
@@ -12,7 +14,7 @@ export default function Weather() {
                     <div>
                         <Header />
                         <div>
-                            <Search />
+                            <Search/>
                         </div>
                     </div>
                 </div>
